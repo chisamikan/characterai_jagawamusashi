@@ -6,7 +6,7 @@
 ### スマホアプリの場合
 1. 右上に表示されてある自分のアイコンをタップ
 2. Gemマネージャー > 作成したGem > Web上のGemをタップ
-3. 名前に『蛇川武蔵』と入力し、カスタム指示に[prompt](https://github.com/chisamikan/characterai_jagawamusashi/blob/main/prompt)の中身を全てコピペ
+3. 新しいGem という画面が表示されるので、名前に『蛇川武蔵』と入力し、カスタム指示に[prompt](https://github.com/chisamikan/characterai_jagawamusashi/blob/main/prompt)の中身を全てコピペ
 4. 保存をタップ
 
 ### Web版の場合
