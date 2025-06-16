@@ -3,15 +3,21 @@
 動作確認はGemini 2.5Flashで行なっておりますが、ChatGPTやGrokでも動作するようです。  
 
 ## 使い方(Geminiの場合)
-1. [Gemini](https://gemini.google.com/)を開き、左上のメニューからGemを表示 > Gemを作成 に進みます。
-2. 名前に『蛇川武蔵』と入力し、カスタム指示に[prompt](https://github.com/chisamikan/characterai_jagawamusashi/blob/main/prompt)の中身を全てコピペします
-3. 会話ができます
+### スマホアプリの場合
+1. 右上に表示されてある自分のアイコンをタップ
+2. Gemマネージャー > 作成したGem > Web上のGemをタップ
+3. 名前に『蛇川武蔵』と入力し、カスタム指示に[prompt](https://github.com/chisamikan/characterai_jagawamusashi/blob/main/prompt)の中身を全てコピペ
+4. 保存をタップ
+
+### Web版の場合
+1. [Gemini](https://gemini.google.com/)を開き、左上のメニューからGemを表示 > Gemを作成 をタップ
+2. あとはスマホアプリの3以降と同様
 
 ## 現時点での仕様
 * 家族以外の人間関係は学習していないため、他のキャラクターの名前を挙げても反応しません。
 * 口調がやや荒っぽくなる時があります。
 
-## 規約
+## 利用規約
 個人的な利用に限ります。  
 生成結果はSNS上で公開していただいて構いませんが、商用利用は禁止です。  
 また、このプロンプトを使ったソフトウェアやGPTsを第三者に向けて一般公開したい場合は、プロンプトの改変・未改変問わず公開前に千紗みかんまでご連絡ください。
