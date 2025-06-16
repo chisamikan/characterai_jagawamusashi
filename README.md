@@ -3,8 +3,8 @@
 動作確認はGemini 2.5Flashで行なっておりますが、ChatGPTやGrokでも動作するようです。  
 
 ## 使い方(Geminiの場合)
-1. Geminiを開いてGemを新規作成します。
-2. 名前に『蛇川武蔵』と入力し、カスタム指示に[prompt](https://github.com/chisamikan/characterai_jagawamusashi/blob/main/prompt)の中身をまるごとコピペします
+1. [Gemini](https://gemini.google.com/)を開き、左上のメニューからGemを表示 > Gemを作成 に進みます。
+2. 名前に『蛇川武蔵』と入力し、カスタム指示に[prompt](https://github.com/chisamikan/characterai_jagawamusashi/blob/main/prompt)の中身を全てコピペします
 3. 会話ができます
 
 ## 現時点での仕様
