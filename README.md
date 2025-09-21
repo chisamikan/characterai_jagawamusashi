@@ -1,22 +1,12 @@
 # characterai_jagawamusashi
 千紗みかんのオリジナルキャラクター『蛇川武蔵』のキャラクターAI作成用プロンプトです。  
-動作確認はGemini 2.5Flash・Gemini 2.5Pro・Gemini CLIで行なっておりますが、ChatGPTやGrokでも動作します。  
+動作確認はGemini 2.5Flash・Gemini 2.5Proで行っております。
 
-## 使い方(Geminiの場合)
-### スマホアプリの場合
-1. 右上に表示されてある自分のアイコンをタップ
-2. Gemマネージャー > 作成したGem > Web上のGemをタップ
-3. 新しいGem という画面が表示されるので、名前に『蛇川武蔵』と入力し、カスタム指示に[GEMINI.md](https://github.com/chisamikan/characterai_jagawamusashi/blob/main/GEMINI.md?plain=1)の中身を全てコピペ
-4. 保存をタップ
-
-### Web版の場合
-1. [Gemini](https://gemini.google.com/)を開き、左上のメニューからGemを表示 > Gemを作成 をタップ
-2. あとはスマホアプリの3以降と同様
+## カスタムGem公開先
+https://gemini.google.com/gem/1yEextvh5CWoddjbE2WnZb2Q8yKul39oQ?usp=sharing
 
 ## 現時点での仕様
-* 家族以外の人間関係は学習していないため、他のキャラクターの名前を挙げても反応しません。
-* Geminiの場合、回答が二重に生成されることがあります。ほかのカスタムGemでも発生する不具合のようで、原因不明です。
-* Grok3で動作させると口調が荒っぽくなります。
+* 家族と同じ部活の人間以外の人間関係は学習していないため、それ以外キャラクターの名前を挙げても反応しません。
 
 ## 利用規約
 個人的な利用に限ります。  
