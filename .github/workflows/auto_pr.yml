@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: npm install node-fetch@3
 
-      # Secrets デバッグ用ステップ（値は表示せず存在確認のみ）
+      # Secrets デバッグ用ステップ(値は表示せず存在確認のみ)
       - name: Debug GEMINI_API_KEY
         run: |
           if [ -z "$GEMINI_API_KEY" ]; then
@@ -39,21 +39,25 @@ jobs:
           PROMPT_PATH: "GEMINI.md"
         run: node scripts/generate_prompt_update.js
 
-      - name: Create new branch and commit
-        run: |
-          BRANCH="update-prompt-${{ github.event.issue.number }}"
-          git checkout -b "$BRANCH"
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add GEMINI.md
-          git commit -m "Auto update prompt based on Issue #${{ github.event.issue.number }}"
-          git push origin "$BRANCH"
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Auto update prompt based on Issue #${{ github.event.issue.number }}"
           title: "Prompt Update: Issue #${{ github.event.issue.number }}"
           body: |
             このプルリクエストは Issue #${{ github.event.issue.number }} に基づいて自動生成されました。
+
+            ## 変更内容
+            Issueの内容に基づいてGEMINI.mdを更新しました。
+
+            ## 確認事項
+            - [ ] プロンプトの内容が意図通りに更新されているか
+            - [ ] キャラクター設定に矛盾がないか
+            - [ ] 既存の設定が失われていないか
+
+            関連Issue: #${{ github.event.issue.number }}
           branch: "update-prompt-${{ github.event.issue.number }}"
+          delete-branch: true
+          committer: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          author: "${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>"
