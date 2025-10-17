@@ -1,0 +1,16 @@
+{
+  "name": "characterai_jagawamusashi",
+  "version": "1.0.0",
+  "description": "千紗みかんのオリジナルキャラクター『蛇川武蔵』のキャラクターAI作成用プロンプトです。  \r 動作確認はGemini 2.5Flash・Gemini 2.5Proで行っております。",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "module",
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}

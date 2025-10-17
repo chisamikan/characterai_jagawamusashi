@@ -1,40 +1,51 @@
-// scripts/generate_prompt_update.js
-import fs from "fs";
 import fetch from "node-fetch";
+import fs from "fs";
 
 const apiKey = process.env.GEMINI_API_KEY;
-const issueBody = process.env.ISSUE_BODY;
-const promptPath = process.env.PROMPT_PATH || "GEMINI.md"; // 対象プロンプト
+const issueBody = process.env.ISSUE_BODY || "";
+const promptPath = process.env.PROMPT_PATH || "GEMINI.md";
 
-const promptContent = fs.readFileSync(promptPath, "utf8");
+if (!apiKey) {
+  console.error("GEMINI_API_KEYが設定されていません。");
+  process.exit(1);
+}
 
-const systemPrompt = `
-以下はプロンプトの現行版です。Issueの要望を踏まえて改善案を生成してください。
-変更点は明確に反映し、既存の文体や形式は維持してください。
-`;
+async function generateUpdatedPrompt() {
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${apiKey}`;
 
-const body = {
-  contents: [
-    {
-      role: "user",
-      parts: [{ text: systemPrompt }, { text: "【現行プロンプト】\n" + promptContent }, { text: "【Issue要望】\n" + issueBody }],
+  const requestBody = {
+    prompt: {
+      text: `以下の内容をもとにGEMINI.mdのプロンプトを更新してください:\n\n${issueBody}`,
     },
-  ],
-};
+    temperature: 1,
+    candidateCount: 1,
+  };
 
-(async () => {
-  const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + apiKey, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
-  const data = await res.json();
-  const newPrompt = data.candidates?.[0]?.content?.parts?.[0]?.text;
+  try {
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody),
+    });
 
-  if (!newPrompt) {
-    console.error(apiKey + "Gemini APIから結果を取得できませんでした。");
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`APIエラー: ${res.status} ${text}`);
+    }
+
+    const data = await res.json();
+    const updatedPrompt = data?.candidates?.[0]?.content?.text;
+
+    if (!updatedPrompt) {
+      throw new Error("生成されたプロンプトが取得できませんでした。");
+    }
+
+    fs.writeFileSync(promptPath, updatedPrompt, "utf8");
+    console.log(`プロンプトを${promptPath}に更新しました。`);
+  } catch (err) {
+    console.error(err);
     process.exit(1);
   }
+}
 
-  fs.writeFileSync(promptPath, newPrompt, "utf8");
-})();
+generateUpdatedPrompt();
