@@ -14,15 +14,16 @@ async function generateUpdatedPrompt() {
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${apiKey}`;
 
   const requestBody = {
-    // 最新仕様では input 配列に text を入れる
-    input: [
+    contents: [
       {
-        text: `以下の内容をもとにGEMINI.mdのプロンプトを更新してください:\n\n${issueBody}`,
+        role: "user",
+        parts: [
+          {
+            text: `以下の内容をもとにGEMINI.mdのプロンプトを更新してください:\n\n${issueBody}`,
+          },
+        ],
       },
     ],
-    // 任意パラメータ（必要に応じて変更）
-    temperature: 1.0,
-    candidateCount: 1,
   };
 
   try {
