@@ -17,10 +17,13 @@ async function generateUpdatedPrompt() {
     input: [
       {
         role: "user",
-        content: [
+        contents: [
           {
-            type: "text",
-            text: `以下の内容をもとにGEMINI.mdのプロンプトを更新してください:\n\n${issueBody}`,
+            parts: [
+              {
+                text: `以下の内容をもとにGEMINI.mdのプロンプトを更新してください:\n\n${issueBody}`,
+              },
+            ],
           },
         ],
       },
