@@ -20,10 +20,18 @@ jobs:
       - name: Install dependencies
         run: npm install node-fetch@3
 
+      # Secrets デバッグ用ステップ（値は表示せず長さだけ確認）
       - name: Debug GEMINI_API_KEY
-        run: echo "Length: ${#GEMINI_API_KEY}"
+        run: echo "Length of GEMINI_API_KEY: ${#GEMINI_API_KEY}"
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      - name: Generate updated prompt
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          PROMPT_PATH: "GEMINI.md"
+        run: node scripts/generate_prompt_update.js
 
       - name: Create new branch and commit
         run: |
