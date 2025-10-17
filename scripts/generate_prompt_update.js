@@ -28,15 +28,23 @@ async function generateUpdatedPrompt() {
       body: JSON.stringify(requestBody),
     });
 
+    const text = await res.text(); // 生のレスポンスを取得
     if (!res.ok) {
-      const text = await res.text();
-      throw new Error(`APIエラー: ${res.status} ${text}`);
+      console.error("APIレスポンスエラー:", res.status, text);
+      throw new Error("Gemini APIから結果を取得できませんでした。");
     }
 
-    const data = await res.json();
-    const updatedPrompt = data?.candidates?.[0]?.content?.text;
+    let data;
+    try {
+      data = JSON.parse(text); // JSON にパース
+    } catch (jsonErr) {
+      console.error("JSONパースエラー:", jsonErr, "レスポンス:", text);
+      throw new Error("APIレスポンスのパースに失敗しました。");
+    }
 
+    const updatedPrompt = data?.candidates?.[0]?.content?.text;
     if (!updatedPrompt) {
+      console.error("APIレスポンス内容:", JSON.stringify(data, null, 2));
       throw new Error("生成されたプロンプトが取得できませんでした。");
     }
 
