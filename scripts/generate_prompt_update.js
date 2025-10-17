@@ -5,6 +5,13 @@ const apiKey = process.env.GEMINI_API_KEY;
 const issueBody = process.env.ISSUE_BODY || "";
 const promptPath = process.env.PROMPT_PATH || "GEMINI.md";
 
+// 環境変数のデバッグ表示（APIキーはマスク）
+console.log("=== 環境変数デバッグ ===");
+console.log("GEMINI_API_KEY:", apiKey ? "***MASKED***" : "未設定");
+console.log("ISSUE_BODY:", issueBody.slice(0, 100) + (issueBody.length > 100 ? "..." : ""));
+console.log("PROMPT_PATH:", promptPath);
+console.log("=========================");
+
 if (!apiKey) {
   console.error("GEMINI_API_KEYが設定されていません。");
   process.exit(1);
