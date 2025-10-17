@@ -20,9 +20,15 @@ jobs:
       - name: Install dependencies
         run: npm install node-fetch@3
 
-      # Secrets デバッグ用ステップ（値は表示せず長さだけ確認）
+      # Secrets デバッグ用ステップ（値は表示せず存在確認のみ）
       - name: Debug GEMINI_API_KEY
-        run: echo "Length of GEMINI_API_KEY: ${#GEMINI_API_KEY}"
+        run: |
+          if [ -z "$GEMINI_API_KEY" ]; then
+            echo "GEMINI_API_KEY is empty"
+            exit 1
+          else
+            echo "GEMINI_API_KEY is set"
+          fi
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
