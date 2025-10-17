@@ -5,13 +5,6 @@ const apiKey = process.env.GEMINI_API_KEY;
 const issueBody = process.env.ISSUE_BODY || "";
 const promptPath = process.env.PROMPT_PATH || "GEMINI.md";
 
-// 環境変数のデバッグ表示（APIキーはマスク）
-console.log("=== 環境変数デバッグ ===");
-console.log("GEMINI_API_KEY:", apiKey ? "***MASKED***" : "未設定");
-console.log("ISSUE_BODY:", issueBody.slice(0, 100) + (issueBody.length > 100 ? "..." : ""));
-console.log("PROMPT_PATH:", promptPath);
-console.log("=========================");
-
 if (!apiKey) {
   console.error("GEMINI_API_KEYが設定されていません。");
   process.exit(1);
@@ -21,10 +14,14 @@ async function generateUpdatedPrompt() {
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${apiKey}`;
 
   const requestBody = {
-    prompt: {
-      text: `以下の内容をもとにGEMINI.mdのプロンプトを更新してください:\n\n${issueBody}`,
-    },
-    temperature: 1,
+    // 最新仕様では input 配列に text を入れる
+    input: [
+      {
+        text: `以下の内容をもとにGEMINI.mdのプロンプトを更新してください:\n\n${issueBody}`,
+      },
+    ],
+    // 任意パラメータ（必要に応じて変更）
+    temperature: 1.0,
     candidateCount: 1,
   };
 
@@ -35,23 +32,15 @@ async function generateUpdatedPrompt() {
       body: JSON.stringify(requestBody),
     });
 
-    const text = await res.text(); // 生のレスポンスを取得
     if (!res.ok) {
-      console.error("APIレスポンスエラー:", res.status, text);
-      throw new Error("Gemini APIから結果を取得できませんでした。");
+      const text = await res.text();
+      throw new Error(`APIレスポンスエラー: ${res.status} ${text}`);
     }
 
-    let data;
-    try {
-      data = JSON.parse(text); // JSON にパース
-    } catch (jsonErr) {
-      console.error("JSONパースエラー:", jsonErr, "レスポンス:", text);
-      throw new Error("APIレスポンスのパースに失敗しました。");
-    }
+    const data = await res.json();
+    const updatedPrompt = data?.candidates?.[0]?.content?.[0]?.text;
 
-    const updatedPrompt = data?.candidates?.[0]?.content?.text;
     if (!updatedPrompt) {
-      console.error("APIレスポンス内容:", JSON.stringify(data, null, 2));
       throw new Error("生成されたプロンプトが取得できませんでした。");
     }
 
