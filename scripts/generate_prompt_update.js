@@ -11,12 +11,16 @@ if (!apiKey) {
 }
 
 async function generateUpdatedPrompt() {
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateMessage?key=${apiKey}`;
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${apiKey}`;
 
   const requestBody = {
     contents: [
       {
-        parts: [{ text: `以下の内容をもとにGEMINI.mdのプロンプトを更新してください:\n\n${issueBody}` }],
+        parts: [
+          {
+            text: `以下の内容をもとにGEMINI.mdのプロンプトを更新してください:\n\n${issueBody}`,
+          },
+        ],
       },
     ],
     generation_config: {
@@ -34,17 +38,11 @@ async function generateUpdatedPrompt() {
 
     if (!res.ok) {
       const text = await res.text();
-      throw new Error(`APIレスポンスエラー: ${res.status} ${text}`);
+      throw new Error(`APIエラー: ${res.status} ${text}`);
     }
 
     const data = await res.json();
-
-    // デバッグ用にレスポンス全体を出力
-    console.log("=== Gemini API Response ===");
-    console.log(JSON.stringify(data, null, 2));
-    console.log("===========================");
-
-    const updatedPrompt = data?.candidates?.[0]?.content?.[0]?.text;
+    const updatedPrompt = data?.candidates?.[0]?.content?.text;
 
     if (!updatedPrompt) {
       throw new Error("生成されたプロンプトが取得できませんでした。");
