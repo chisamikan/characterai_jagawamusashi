@@ -14,22 +14,15 @@ async function generateUpdatedPrompt() {
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateMessage?key=${apiKey}`;
 
   const requestBody = {
-    input: [
+    contents: [
       {
-        role: "user",
-        contents: [
-          {
-            parts: [
-              {
-                text: `以下の内容をもとにGEMINI.mdのプロンプトを更新してください:\n\n${issueBody}`,
-              },
-            ],
-          },
-        ],
+        parts: [{ text: `以下の内容をもとにGEMINI.mdのプロンプトを更新してください:\n\n${issueBody}` }],
       },
     ],
-    temperature: 1,
-    candidateCount: 1,
+    generation_config: {
+      temperature: 1,
+      max_output_tokens: 1000,
+    },
   };
 
   try {
