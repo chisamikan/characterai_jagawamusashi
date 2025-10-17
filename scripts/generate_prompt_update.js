@@ -32,8 +32,7 @@ const body = {
   const newPrompt = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
   if (!newPrompt) {
-    console.error(apiKey);
-    console.error("Gemini APIから結果を取得できませんでした。");
+    console.error(apiKey + "Gemini APIから結果を取得できませんでした。");
     process.exit(1);
   }
 
