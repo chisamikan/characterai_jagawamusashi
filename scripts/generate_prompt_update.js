@@ -2,7 +2,7 @@
 import fs from "fs";
 import fetch from "node-fetch";
 
-const apiKey = vars.GEMINI_API_KEY;
+const apiKey = process.env.GEMINI_API_KEY;
 const issueBody = process.env.ISSUE_BODY;
 const promptPath = process.env.PROMPT_PATH || "GEMINI.md"; // 対象プロンプト
 
