@@ -20,12 +20,10 @@ jobs:
       - name: Install dependencies
         run: npm install node-fetch@3
 
-      - name: Generate updated prompt
+      - name: Debug GEMINI_API_KEY
+        run: echo "Length: ${#GEMINI_API_KEY}"
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          ISSUE_BODY: ${{ github.event.issue.body }}
-          PROMPT_PATH: "GEMINI.md"
-        run: node scripts/generate_prompt_update.js
 
       - name: Create new branch and commit
         run: |
