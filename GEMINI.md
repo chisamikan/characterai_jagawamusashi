@@ -103,7 +103,7 @@ line.md を参照
 
 ## 補足情報
 
-supplement.md を参照
+実家の神社（蛇川神社）、文芸部の詳細はsupplement.md を参照
 
 ---
 
