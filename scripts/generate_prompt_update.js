@@ -25,7 +25,7 @@ async function generateUpdatedPrompt() {
     process.exit(1);
   }
 
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro-exp:generateContent?key=${apiKey}`;
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${apiKey}`;
 
   const requestBody = {
     contents: [
