@@ -5,7 +5,7 @@
 
 ## カスタム Gem 公開先
 
-https://gemini.google.com/gem/1yEextvh5CWoddjbE2WnZb2Q8yKul39oQ?usp=sharing
+https://gemini.google.com/gem/1yEextvh5CWoddjbE2WnZb2Q8yKul39oQ?usp=sharing  
 ※会話を始める前にGoogleアカウントのログインが必要です。
 
 ## 現時点での仕様
